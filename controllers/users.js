@@ -22,12 +22,14 @@ const login = async (req, res) => {
     })
 
     const isPasswordCorrect = user &&  (await brypt.compare(password , user.password))
+    const secret = process.env.JWT_SECRET ;
 
-    if (user && isPasswordCorrect){
+    if (user && isPasswordCorrect && secret ){
         res.status(200).json({
             id : user.id ,
             email : user.email ,
-            name : user.name
+            name : user.name,
+            token: jwt.sign({id : user.id} , secret , {expiresIn : "30d"})
         })
     } else {
         return res.status(400).json({ message : "неверно введен логин или пароль"})
@@ -43,7 +45,7 @@ const register = async (req, res) => {
     const {email , password, name } = req.body;
 
     if (!password || !email || !name){
-        return res.send(400).json({message: "заполните обязательные поля"})
+        return res.status(400).json({message: "заполните обязательные поля"})
     }
 
     const registeredUser = await prisma.user.findFirst({
@@ -82,8 +84,15 @@ const register = async (req, res) => {
     }
 }
 
+
+
+/*@route GET api/user/current
+@desc текущий пользователь
+@acces Private*/
+
+
 const current = async (req, res) => {
-    res.send('current');
+    return res.status(200).json(req.user)
 }
 
 module.exports = {

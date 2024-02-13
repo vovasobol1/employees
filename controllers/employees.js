@@ -45,7 +45,67 @@ const add = async (req , res ) => {
 }
 
 
+
+// @router POST /api/employees/remove:id
+// @deskc удаление сотрудника
+// @acces Private
+const remove = async (req , res) =>{
+    const {id} = req.body
+    try {
+        await prisma.employee.delete({
+            where:{
+                id
+            }
+        })
+        res.status(204).json('OK')
+    }catch (err) {
+        res.status(500).json({message : "не удалось удалить сотрудника"})
+    }
+}
+
+
+// @router PUT /api/employees/edit:id
+// @deskc редактирование сотрудника
+// @acces Private
+const edit = async (req , res) =>{
+    const data = req.body
+    const id = data.id
+    
+    try{
+        await prisma.employee.update({
+            where : {
+                id
+            },
+            data
+        })
+
+        res.status(204).json('OK')
+    }catch (err) {
+        res.status(500).json({message : "не удалось редактировать сотрудника"})
+    }
+}
+
+// @router GET /api/employees/:id
+// @deskc получение сотрудника
+// @acces Private
+const employee = async (req , res ) =>{
+    const { id } = req.params
+    try{
+        const employee = await prisma.employee.findUnique({
+            where : {
+                id
+            }
+        })
+        res.status(200).json(employee)
+    }catch (err) {
+        res.status(500).json({message : "не удалось получить сотрудника"})
+    }
+}
+
 module.exports = {
     all ,
-    add
+    add ,
+    remove ,
+    edit ,
+    employee
 }

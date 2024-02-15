@@ -22,10 +22,9 @@ const all = async (req , res ) => {
 // @acces Private
 const add = async (req , res ) => {
     try {
-        console.log('добавляю') ;
         const data = req.body ;
 
-        if (!data.firstName || !data.lasName || !data.age || !data.adress){
+        if (!data.firstName || !data.lastName || !data.age || !data.address){
             return res.status(400).json({message : "все поля обязательны "})
         }
 
@@ -37,20 +36,17 @@ const add = async (req , res ) => {
         });
 
         return res.status(201).json(employee)
-
     } catch(err) {
-        console.log(err)
-        res.status(500).json({message : "что то пошло не так "})
+        res.status(500).json({message : "не получилось добавить "})
     }
 }
-
 
 
 // @router POST /api/employees/remove:id
 // @deskc удаление сотрудника
 // @acces Private
 const remove = async (req , res) =>{
-    const {id} = req.body
+    const { id } = req.body
     try {
         await prisma.employee.delete({
             where:{

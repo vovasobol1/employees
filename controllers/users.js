@@ -2,11 +2,9 @@ const {prisma} = require("../prisma/prisma-client");
 const brypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
-//
 // @route POST /api/user/login
 // @desc логин
 // @acces Public
-//
 
 const login = async (req, res) => {
     try {

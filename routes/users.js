@@ -8,9 +8,9 @@ const {auth} = require("../middleware/auth")
 router.post('/login', login);
 
 // /api/user/register
-router.post('/register',register );
+router.post('/register',register);
 
 // /api/user/current
-router.get('/current', auth , current );
+router.get('/current',auth,current);
 
 module.exports = router;

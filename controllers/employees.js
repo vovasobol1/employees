@@ -42,7 +42,7 @@ const add = async (req , res ) => {
 }
 
 
-// @router POST /api/employees/remove:id
+//@router POST /api/employees/remove:id
 // @deskc удаление сотрудника
 // @acces Private
 const remove = async (req , res) =>{

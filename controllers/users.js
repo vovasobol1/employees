@@ -45,9 +45,10 @@ const login = async (req, res) => {
 // @route POST /api/user/register
 // @desc логин
 // @acces Public
+
+// функция регистрации пользователя
 const register = async (req, res) => {
     try {
-
         const {email , password, name } = req.body;
 
         if (!password || !email || !name){
@@ -60,7 +61,7 @@ const register = async (req, res) => {
             }
         })
 
-        //если пользователь уже зареган
+        //если пользователь уже зарегистрирован
         if (registeredUser){
             return res.status(400).json({message: "пользователь с таким email уже существует"})
         }

@@ -85,12 +85,13 @@ const edit = async (req , res) =>{
 // @deskc получение сотрудника
 // @acces Private
 const employee = async (req , res ) =>{
-    const { id } = req.params
+    // const { id } = req.params
+
     try{
         const employee = await prisma.employee.findUnique({
             where : {
-                id
-            }
+                id ,
+            } ,
         })
         res.status(200).json(employee)
     }catch (err) {

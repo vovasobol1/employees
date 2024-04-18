@@ -1,5 +1,8 @@
 import {Employee} from "@prisma/client";
-import { Card } from "antd";
+import { Card, Form, Space } from "antd";
+import {CustomInput} from "../custom-input";
+import {ErrorMessage} from "../error-Message";
+import {CustomButton} from "../custom-button";
 
 type Props<T> = {
     onFinish : (values : T) => void ;
@@ -9,10 +12,22 @@ type Props<T> = {
     employee? : T ;
 
 }
-export const employeeForm = ({onFinish , title , btnTExt , error , employee}:Props<Employee>) => {
+export const EmployeeForm = ({onFinish , title , btnTExt , error , employee}:Props<Employee>) => {
     return(
-        <Card>
+        <Card title={title} style={{width : '30rem'}}>
+            <Form name={'employee form'} onFinish={onFinish} initialValues={employee}>
+                <CustomInput type={'text'} name={'fistName'} placeholder={'Имя'}/>
+                <CustomInput type={'text'} name={'lastName'} placeholder={'Фамилия'}/>
+                <CustomInput type={'number'} name={'age'} placeholder={'Возраст'}/>
+                <CustomInput type={'text'} name={'address'} placeholder={'Адрес'}/>
+                <Space>
+                    <ErrorMessage message={error} />
+                    <CustomButton htmlType={'submit'}>
+                        {btnTExt}
+                    </CustomButton>
 
+                </Space>
+            </Form>
         </Card>
     )
 }

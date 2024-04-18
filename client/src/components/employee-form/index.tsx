@@ -16,16 +16,15 @@ export const EmployeeForm = ({onFinish , title , btnTExt , error , employee}:Pro
     return(
         <Card title={title} style={{width : '30rem'}}>
             <Form name={'employee form'} onFinish={onFinish} initialValues={employee}>
-                <CustomInput type={'text'} name={'fistName'} placeholder={'Имя'}/>
+                <CustomInput type={'text'} name={'firstName'} placeholder={'Имя'}/>
                 <CustomInput type={'text'} name={'lastName'} placeholder={'Фамилия'}/>
                 <CustomInput type={'number'} name={'age'} placeholder={'Возраст'}/>
                 <CustomInput type={'text'} name={'address'} placeholder={'Адрес'}/>
-                <Space>
-                    <ErrorMessage message={error} />
+                <Space >
                     <CustomButton htmlType={'submit'}>
                         {btnTExt}
                     </CustomButton>
-
+                    <ErrorMessage message={error} />
                 </Space>
             </Form>
         </Card>

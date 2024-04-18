@@ -24,7 +24,7 @@ const add = async (req , res ) => {
     try {
         const data = req.body ;
 
-        if (!data.firstName || !data.lastName || !data.age || !data.address){
+        if (!data.firstName && !data.lastName && !data.age && !data.address){
             return res.status(400).json({message : "все поля обязательны "})
         }
 
@@ -37,7 +37,7 @@ const add = async (req , res ) => {
 
         return res.status(201).json(employee)
     } catch(err) {
-        res.status(500).json({message : "не получилось добавить "})
+        res.status(500).json({message : 'не удалось добавить сотрудника'})
     }
 }
 

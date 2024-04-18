@@ -20,7 +20,7 @@ export const AddEmployee = () =>{
         if (!user){
             navigate('/login')
         }
-    }, [navigate , user ]);
+    }, [navigate , user]);
 
     const handleAddEmployee = async (data : Employee) => {
         try{

@@ -11,5 +11,18 @@ listenerMiddleware.startListening({
         if (action.payload.token){
             localStorage.setItem('token' , action.payload.token )
         }
-    }
+    },
+
+})
+
+listenerMiddleware.startListening({
+    matcher: authApi.endpoints.register.matchFulfilled ,
+    effect : async (action , listenerApi) =>{
+        listenerApi.cancelActiveListeners()
+        //если есть токен то запишем его в локал сторадж
+        if (action.payload.token){
+            localStorage.setItem('token' , action.payload.token )
+        }
+    },
+
 })

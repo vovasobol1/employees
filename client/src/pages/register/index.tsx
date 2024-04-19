@@ -9,6 +9,10 @@ import {Paths} from "../../paths";
 import {useLoginMutation, UserData, useRegisterMutation} from "../../app/servises/auth";
 import {IsErrorWithMessage} from "../../utils/is-error-with-message";
 import {ErrorMessage} from "../../components/error-Message";
+import {User} from "@prisma/client";
+
+type RegisterData = Omit<User , 'id'> & {confirmPassword : string}
+
 
 export const Register = () =>{
     // registerUser вызывает запрос
@@ -18,9 +22,10 @@ export const Register = () =>{
     const [error , setError] = useState('')
     const navigate = useNavigate()
 
-    const register = async(data : UserData) =>{
+    const register = async(data : RegisterData) =>{
         try{
             await registerUser(data).unwrap()
+
             navigate('/')
         }catch (error) {
             const maybeError = IsErrorWithMessage(error)

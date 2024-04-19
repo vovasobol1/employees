@@ -66,13 +66,20 @@ const remove = async (req , res) =>{
 const edit = async (req , res) =>{
     const data = req.body
     const id = data.id
+
+    // Проверяем наличие и корректность поля id в объекте data
+    if (!data || !data.id) {
+        console.error('Ошибка: некорректные данные для редактирования');
+        console.error('Полученные данные:', data);
+        return res.status(400).json({ message: 'Некорректные данные для редактирования' });
+    }
     
     try{
         await prisma.employee.update({
             where : {
                 id
             },
-            data
+            data : data
         })
 
         res.status(204).json('OK')

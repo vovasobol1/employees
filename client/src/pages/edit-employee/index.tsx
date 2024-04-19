@@ -6,6 +6,7 @@ import {EmployeeForm} from "../../components/employee-form";
 import {Layout} from "../../components/layout";
 import {IsErrorWithMessage} from "../../utils/is-error-with-message";
 import {Employee} from "@prisma/client";
+import {Paths} from "../../paths";
 
 
 export const EditEmployee = () => {
@@ -16,7 +17,7 @@ export const EditEmployee = () => {
     const [editEmployee] = useEditEmployeeMutation()
 
 
-    const handleEditUser = async (employee : Employee) => {
+    const handleEditUser = async(employee : Employee) => {
         try {
             const editedEmployee = {
                 ...data ,
@@ -24,8 +25,11 @@ export const EditEmployee = () => {
             }
 
             await editEmployee(editedEmployee).unwrap()
+            navigate(`${Paths.status}/updated/`)
+
         }catch (err) {
             const maybeError = IsErrorWithMessage(err)
+
 
             if (maybeError){
                 setError(err.data.message)

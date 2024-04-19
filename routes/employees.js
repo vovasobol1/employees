@@ -12,6 +12,7 @@ router.post('/add', auth, add);
 // /api/employees/remove:id
 router.post('/remove/:id' , auth , remove )
 
+
 router.put('/edit/:id' , auth ,  edit )
 
 // /api/employees/:id

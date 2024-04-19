@@ -80,6 +80,12 @@ export const Employee = () => {
                 <Descriptions.Item label={'Адрес'} span={3}>
                     {`${data.address}`}
                 </Descriptions.Item>
+                {/*<Descriptions.Item label={'id сотрудника'} span={3}>*/}
+                {/*    {`${data.id}`}*/}
+                {/*</Descriptions.Item>*/}
+                {/*<Descriptions.Item label={'id  пользователя'} span={3}>*/}
+                {/*    {`${data.userId}`}*/}
+                {/*</Descriptions.Item>*/}
             </Descriptions>
             {
 

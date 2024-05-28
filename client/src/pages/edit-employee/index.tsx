@@ -7,6 +7,7 @@ import {Layout} from "../../components/layout";
 import {IsErrorWithMessage} from "../../utils/is-error-with-message";
 import {Employee} from "@prisma/client";
 import {Paths} from "../../paths";
+import {LoadingOutlined} from "@ant-design/icons";
 
 
 export const EditEmployee = () => {
@@ -15,7 +16,6 @@ export const EditEmployee = () => {
     const params = useParams<{ id: string }>()
     const {data , isLoading} = useGetEmployeeQuery(params.id || "") // получает сотрудника по айди
     const [editEmployee] = useEditEmployeeMutation()
-
 
     const handleEditUser = async(employee : Employee) => {
         try {
@@ -40,7 +40,7 @@ export const EditEmployee = () => {
     }
 
     if (isLoading){
-        return <span>загрузка</span>
+        return <LoadingOutlined />
     }
 
     return (

@@ -7,7 +7,7 @@ import {selectUser} from "../../features/auth/authSlice";
 import {Layout} from "../../components/layout";
 import {Descriptions, Divider, Modal, Space} from "antd";
 import {CustomButton} from "../../components/custom-button";
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import {DeleteOutlined, EditOutlined, LoadingOutlined} from "@ant-design/icons";
 import {ErrorMessage} from "../../components/error-Message";
 import {Paths} from "../../paths";
 import {IsErrorWithMessage} from "../../utils/is-error-with-message";
@@ -60,8 +60,9 @@ export const Employee = () => {
 
     }
 
+
     if (isLoading) {
-        return <span>Загрузка</span>
+        return <LoadingOutlined style={{fontSize: '150px'}} />
     }
 
     if (!data) {
@@ -80,12 +81,6 @@ export const Employee = () => {
                 <Descriptions.Item label={'Адрес'} span={3}>
                     {`${data.address}`}
                 </Descriptions.Item>
-                {/*<Descriptions.Item label={'id сотрудника'} span={3}>*/}
-                {/*    {`${data.id}`}*/}
-                {/*</Descriptions.Item>*/}
-                {/*<Descriptions.Item label={'id  пользователя'} span={3}>*/}
-                {/*    {`${data.userId}`}*/}
-                {/*</Descriptions.Item>*/}
             </Descriptions>
             {
 

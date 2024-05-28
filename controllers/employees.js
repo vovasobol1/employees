@@ -1,4 +1,5 @@
 const {prisma} = require("../prisma/prisma-client");
+const {faker} = require("@faker-js/faker");
 
 // @router GET /api/employees
 // @deskc получение всех сотрудников
@@ -40,6 +41,54 @@ const add = async (req , res ) => {
         res.status(500).json({message : 'не удалось добавить сотрудника'})
     }
 }
+
+
+const addTestEmployees = async (req, res) => {
+    try {
+        const numberOfEmployees = req.body.numberOfEmployees;
+
+        if (!numberOfEmployees || typeof numberOfEmployees !== 'number') {
+            return res.status(400).json({ message: "Необходимо передать количество сотрудников" });
+        }
+
+        const employees = [];
+        for (let i = 0; i < numberOfEmployees; i++) {
+            const firstName = faker.person.firstName();
+            const lastName = faker.person.lastName();
+            const age = faker.number.int({ min: 18, max: 65 }).toString();
+            const address = faker.location.city();
+
+            // console.log(`Generated employee ${i + 1}:`, { firstName, lastName, age, address });
+
+            employees.push({
+                firstName,
+                lastName,
+                age,
+                address
+            });
+        }
+
+        const createdEmployees = [];
+        console.log(req.user.id)
+        for (const employeeData of employees) {
+            console.log(employeeData)
+            const employee = await prisma.employee.create({
+                data:{
+                    ...employeeData,
+                    userId : req.user.id
+                }
+            });
+            createdEmployees.push(employee);
+        }
+
+        return res.status(201).json(createdEmployees);
+    } catch (err) {
+        console.error('Error creating employees:', err);
+        res.status(500).json({ message: 'Не удалось добавить сотрудников' });
+    }
+};
+
+
 
 
 //@router POST /api/employees/remove:id
@@ -110,5 +159,6 @@ module.exports = {
     add ,
     remove ,
     edit ,
-    employee
+    employee ,
+    addTestEmployees
 }
